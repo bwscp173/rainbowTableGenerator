@@ -94,9 +94,15 @@ def writeRainbowTable(fileName:str, rainbowTable:dict) -> None:
     with open(fileName,"w") as f:
         f.write(json.dumps(rainbowTable,indent=4))
 
+def loadRainbowTable(fileName:str) -> json:
+    if not os.path.isfile(fileName):
+        raise Exception("invalid file: file given does not exist")
+
 def save_x_lines(fileName:str, lines:int) -> list[str]:
     """inefficient as hell, i just needed to save x many lines from rockyou
     the file it saves to is hardcoded"""
+    if not os.path.isfile(fileName):
+        raise Exception("invalid file: file given does not exist")
     a = readFromFile(fileName)[:lines]
     with open("10mil.txt","w") as f:
         f.write('\n'.join(a))
@@ -127,24 +133,29 @@ def lookUpHashes(fileName:str, hashes:list[str]) -> str:
 if __name__ == "__main__":
 
     hashChoice:int = getChoice(options)
-    wordList = readFromFile("1mil.txt")
-    time1 = time.time()
-    hashes = computeRainbowTable(wordList,hashChoice)
-    time2 = time.time()
-    print("time to calc: " + str(time2 - time1))
+    # wordList = readFromFile("rockyou.txt")
+    # time1 = time.time()
+    # hashes = computeRainbowTable(wordList,hashChoice)
+    # time2 = time.time()
+    # print("time to calc: " + str(time2 - time1))
 
 
-    time1 = time.time()
-    writeRainbowTable("results.json",hashes)
-    time2 = time.time()
-    print("time to write: " + str(time2 - time1))
+    # time1 = time.time()
+    # writeRainbowTable("results.json",hashes)
+    # time2 = time.time()
+    # print("time to write: " + str(time2 - time1))
 
-    input("pausing")
+    #input("pausing")
 
-    time1 = time.time()
-    #where resultsSmoll.json are md5 keys
-    print("password is: ", lookUpHashes("resultsSmoll.json",["263fec58861449aacc1c328a4aff64aff4c62df4a2d50b3f207fa89b6e242c9aa778e7a8baeffef85b6ca6d2e7dc16ff0a760d59c13c238f6bcdc32f8ce9cc62","547e4dcff44f953e4aef595d0562af9f8394c6b6b1f6f1678d29806cfb6659e973785dc2054cbac9f1ffdc7ddb8e4bdd02a3760d05346a567cc7f8dce8c74709","690437692d902cfd23005bda16631d83644899e78dc0a489da6dca3cb9f9c0cdcd9dd533bc59102dc90155223df777672328c9149354de239f48c58f0a1d44a6"]))  # some random hash near the end of the file
-    time2 = time.time()
+    # time1 = time.time()
+    # #where resultsSmoll.json are md5 keys
+    # print("password is: ", lookUpHashes("resultsSmoll.json",["263fec58861449aacc1c328a4aff64aff4c62df4a2d50b3f207fa89b6e242c9aa778e7a8baeffef85b6ca6d2e7dc16ff0a760d59c13c238f6bcdc32f8ce9cc62","547e4dcff44f953e4aef595d0562af9f8394c6b6b1f6f1678d29806cfb6659e973785dc2054cbac9f1ffdc7ddb8e4bdd02a3760d05346a567cc7f8dce8c74709","690437692d902cfd23005bda16631d83644899e78dc0a489da6dca3cb9f9c0cdcd9dd533bc59102dc90155223df777672328c9149354de239f48c58f0a1d44a6"]))  # some random hash near the end of the file
+    # time2 = time.time()
+
+    # time1 = time.time()
+    # #where resultsSmoll.json are md5 keys
+    # print("password is: ", lookUpHashes("resultsSmoll.json",["263fec58861449aacc1c328a4aff64aff4c62df4a2d50b3f207fa89b6e242c9aa778e7a8baeffef85b6ca6d2e7dc16ff0a760d59c13c238f6bcdc32f8ce9cc62","547e4dcff44f953e4aef595d0562af9f8394c6b6b1f6f1678d29806cfb6659e973785dc2054cbac9f1ffdc7ddb8e4bdd02a3760d05346a567cc7f8dce8c74709","690437692d902cfd23005bda16631d83644899e78dc0a489da6dca3cb9f9c0cdcd9dd533bc59102dc90155223df777672328c9149354de239f48c58f0a1d44a6"]))  # some random hash near the end of the file
+    # time2 = time.time()
 
 
     # time1 = time.time()
@@ -154,5 +165,10 @@ if __name__ == "__main__":
 
     # time1 = time.time()
     # print("password is: ", lookUpHashes("results.json",["5df96e9d8177d088819c2483a1470ddc"]))  # some random hash near the end of the file
+    # time2 = time.time()
+    # print("total time searching + loading: " + str(time2 - time1))
+
+    # time1 = time.time()
+    # print("password is: ", lookUpHash("results.json",hashlib.md5("")))  # some random hash near the end of the file
     # time2 = time.time()
     # print("total time searching + loading: " + str(time2 - time1))
